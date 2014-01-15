@@ -11,6 +11,7 @@
 SOURCEDIR=.
 
 SOURCE=\
+	$(SOURCEDIR)/Utils.cpp\
 	$(SOURCEDIR)/Thread.cpp\
 	$(SOURCEDIR)/Mutex.cpp\
 	$(SOURCEDIR)/Condition.cpp\

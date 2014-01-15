@@ -50,7 +50,7 @@ int main()
 	TCPRequest tcp_req(0, 1000, "First Request");
 	for(int i=0; i<5; i++)
 	{
-		sleep(1);
+		//sleep(1);
 		tcp_req.setSocketDesc(i);
 		req_q.pushBack(&tcp_req);
 	}

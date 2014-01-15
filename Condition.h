@@ -30,8 +30,10 @@
 #define _CONDITION_H_
 
 #include <iostream>
+#include <sys/time.h>
 #include <pthread.h>
 #include "Mutex.h"
+#include "Utils.h"
 
 using namespace std;
 
@@ -41,6 +43,7 @@ class Condition : public Mutex
 		Condition();
 		~Condition();
 		void	Wait();
+		int		TimedWait(int ai_tSecondsToWait);
 		void	Signal();
 		void	Broadcast();
 

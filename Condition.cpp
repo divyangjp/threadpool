@@ -43,6 +43,22 @@ void Condition::Wait()
 	pthread_cond_wait(&m_cond, &m_mutex);
 }
 
+int	Condition::TimedWait(int ai_tSecondsToWait)
+{
+	int nResult = 0;
+	struct timespec timeToWait;
+  	struct timeval now;
+
+  	gettimeofday(&now,NULL);
+
+    Utils::SecsToTimespec((now.tv_sec+ai_tSecondsToWait), timeToWait); 
+  	//timeToWait.tv_sec = now.tv_sec+ai_tSecondsToWait;
+  	//timeToWait.tv_nsec = (now.tv_usec+ai_tSecondsToWait*1000000UL)*1000UL;
+
+	nResult = pthread_cond_timedwait(&m_cond, &m_mutex, &timeToWait);
+
+	return nResult;	
+}
 void Condition::Signal()
 {
 	pthread_cond_signal(&m_cond);

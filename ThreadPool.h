@@ -33,6 +33,7 @@
 
 #include <iostream>
 #include <vector>
+#include <errno.h>
 #include "Thread.h"
 #include "Condition.h"
 #include "ThrReqHandler.h"

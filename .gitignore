@@ -28,3 +28,4 @@
 ## Project specific ignore rules ##
 deprecated/
 tags
+threadpool/
