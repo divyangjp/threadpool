@@ -35,6 +35,11 @@ using namespace std;
 
 ThreadPool::ThreadPool(int num_threads, RequestQ<Request>* req):m_req_q(req)
 {
+    //Assign thread ID.
+    //For ThreadPool, we will add 1000 to thread ID, so that we can differentiate
+    //it from request handler (worker) threads.
+    m_iThreadId = m_siTIdCount + 1000;
+
 	for(int i=0; i<num_threads; ++i)
 	{
 		ThrReqHandler *thr = new ThrReqHandler(this);

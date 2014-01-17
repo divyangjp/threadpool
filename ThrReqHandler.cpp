@@ -50,6 +50,8 @@ void ThrReqHandler::Run()
 		while(!m_req && !m_end)
 			m_work_cond.Wait();
 
+        cout << "Request number " << m_req->getReqID() <<
+                " is being handled by thread number " << m_iThreadId << endl;
 		m_req->doWork();
 		m_req = NULL;
 
