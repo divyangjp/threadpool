@@ -36,10 +36,7 @@
 #include "RequestQ.h"
 #include "ThreadPool.h"
 #include "TCPRequest.h"
-
-#define NUM_THREADS 5
-
-//using namespace std;
+#include "Common.h"
 
 int main()
 {

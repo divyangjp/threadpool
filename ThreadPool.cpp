@@ -29,8 +29,6 @@
 
 #include "ThreadPool.h"
 
-#define	SECONDS_TO_WAIT		5
-
 using namespace std;
 
 ThreadPool::ThreadPool(int num_threads, RequestQ<Request>* req):m_req_q(req)
