@@ -53,6 +53,10 @@ void ThrReqHandler::Run()
         cout << "Request number " << m_req->getReqID() <<
                 " is being handled by thread number " << m_iThreadId << endl;
 		m_req->doWork();
+
+		//We're done with request, let's delete it as it is dynamically initialized memory
+		//This memory is initialized in Thread_App.cpp while creating TCPRequest pointer
+		delete m_req;
 		m_req = NULL;
 
 		m_work_cond.Unlock();

@@ -47,12 +47,13 @@ int main()
 	ThreadPool t_pool(NUM_THREADS, &req_q);
 	t_pool.Start();
 
-	TCPRequest tcp_req(0, 1000, "First Request");
 	for(int i=0; i<5; i++)
 	{
 		//sleep(1);
-		tcp_req.setSocketDesc(i);
-		req_q.pushBack(&tcp_req);
+		//This dynamically allocated memory will be freed by the thread handler
+		//after completing the work for the request (in ThrReqHandler.cpp)
+		TCPRequest* tcp_req = new TCPRequest(i, 1000+i, "Request");
+		req_q.pushBack(tcp_req);
 	}
 
 	t_pool.Join();
