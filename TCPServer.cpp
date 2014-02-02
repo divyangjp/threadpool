@@ -1,9 +1,9 @@
 /**
- * @file Common.h
- * @brief Common stuff like constatns, string literals etc
+ * @file TCPServer.cpp
+ * @brief See header
  * @author Divyang Patel <divyang.jp@gmail.com>
  * @version 1.0
- * @date 2014-01-20
+ * @date 2014-01-28
  *
  * Copyright (C)
  * 2014 - Divyang Patel <divyang.jp@gmail.com>
@@ -26,18 +26,4 @@
  *
  */
 
-#ifndef _COMMON_H_
-#define _COMMON_H_
-
-#define NUM_THREADS                     5
-#define	SECONDS_TO_WAIT                 5
-
-#define LOCALHOST                       "127.0.0.1"
-#define DEFAULT_PORT                    9000
-#define BACKLOG                         20
-
-
-//Error Codes
-#define ERR_GETADDRINFO                 0101
-
-#endif  //_COMMON_H_
+#include "TCPServer.h"
