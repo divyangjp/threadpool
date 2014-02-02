@@ -27,3 +27,82 @@
  */
 
 #include "TCPServer.h"
+#include <cstring>
+#include <cstdlib>
+
+using namespace std;
+
+int TCPServer::GetAddrInfo(const char* node,
+                           const char* service,
+                           struct addrinfo *hints,
+                           struct addrinfo **res)
+{
+    int nResult=0;
+
+    memset(hints, 0, sizeof(struct addrinfo));
+    hints->ai_family = AF_UNSPEC;                   /* Allow IPv4 or IPv6 */
+    hints->ai_socktype = SOCK_STREAM;               /* TCP stream sockets */
+    hints->ai_flags = AI_PASSIVE;                   /* Fill in my IP for me. Though we've localhost IP, we'll just use this for now */
+
+    nResult = getaddrinfo(NULL, service, hints, res);
+
+    if(nResult != 0)
+    {
+        cout << "Failed to getaddrinfo. Error : " << gai_strerror(nResult) << endl;
+        cout << "Exiting" << endl;
+        exit(1);
+    }
+
+    //At this point, res structure contains list of addrinfos
+    return nResult;
+}
+
+void TCPServer::FreeAddrInfo(struct addrinfo *res)
+{
+    freeaddrinfo(res);
+}
+
+int TCPServer::Socket(const struct addrinfo *res)
+{
+    int nResult=0;
+
+    nResult = socket(res->ai_family, res->ai_socktype, res->ai_protocol);
+
+    //nResult is socket file descriptor in case of success and -1 otherwise
+    return nResult;
+}
+
+int TCPServer::Bind(int sockfd, const struct addrinfo *res)
+{
+    int nResult = 0;
+
+    nResult = bind(sockfd, res->ai_addr, res->ai_addrlen);
+
+    //nResult is 0 in case of success and -1 otherwise
+    return nResult;
+}
+
+int TCPServer::Listen(int sockfd, int backlog)
+{
+    int nResult = 0;
+
+    nResult = listen(sockfd, backlog);
+
+    //nResult is 0 in case of succcess and -1 otherwise
+    return nResult;
+}
+
+int TCPServer::Accept(int sockfd)
+{
+    int nResult = 0;
+
+    //Erase any previous client address stored
+    memset(&m_ClientAddr, 0, sizeof(struct sockaddr_storage));
+
+    socklen_t addrlen = sizeof(struct sockaddr_storage);
+    nResult = accept(sockfd, (struct sockaddr*)&m_ClientAddr, &addrlen);
+
+    //nResult is newly alloted socket file descriptor for the client connected in case of success.
+    //-1 if failure
+    return nResult;
+}

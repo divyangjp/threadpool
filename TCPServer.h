@@ -37,12 +37,17 @@
 class TCPServer
 {
     public:
+        TCPServer(const char* ai_sIP, const char* ai_sPort, int ai_iBacklog);
+        ~TCPServer();
+
+        //Returns new socket file descriptor if success, -1 otherwise
+        int                     Accept(int sockfd);
 
     protected:
         //Returns 0 on success, error code otherwise
         int                     GetAddrInfo(const char* node,
                                             const char* service,
-                                            const struct addrinfo* hints,
+                                            struct addrinfo* hints,
                                             struct addrinfo** res);
         void                    FreeAddrInfo(struct addrinfo *res);
 
@@ -55,15 +60,16 @@ class TCPServer
         //Returns 0 if success, -1 otherwise
         int                     Listen(int sockfd, int backlog);
 
-        //Returns new socket file descriptor if success, -1 otherwise
-        int                     Accept(int sockfd, struct sockaddr_storage client_addr, socklen_t addr_size);
-
     private:
         int                     m_iSockFD;
         addrinfo                m_stHints;
         addrinfo                *m_stResAddr;
         std::string             m_sIP;
         int                     m_iPort;
+
+        //m_ClientAddr will always hold info for the most recent client connected to server
+        //after the Accept call
+        sockaddr_storage        m_ClientAddr;
 
 };
 
