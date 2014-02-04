@@ -32,6 +32,31 @@
 
 using namespace std;
 
+TCPServer::TCPServer(const char* ai_sIP,
+                     const char* ai_sPort,
+                     int ai_iBacklog)
+{
+    int gai_rval = GetAddrInfo(ai_sIP, ai_sPort, &m_stHints, &m_stResAddr);
+
+    m_iSockFD = Socket(m_stResAddr);
+
+    if(m_iSockFD == -1)
+    {
+        cout << "socket call failed. Exiting..." << endl;
+        exit(1);
+    }
+
+    int bind_rval = Bind(m_iSockFD, m_stResAddr);
+    int lisn_rval = Listen(m_iSockFD, ai_iBacklog); //Error checking?
+    FreeAddrInfo(m_stResAddr);
+
+}
+
+TCPServer::~TCPServer()
+{
+
+}
+
 int TCPServer::GetAddrInfo(const char* node,
                            const char* service,
                            struct addrinfo *hints,
@@ -105,4 +130,9 @@ int TCPServer::Accept(int sockfd)
     //nResult is newly alloted socket file descriptor for the client connected in case of success.
     //-1 if failure
     return nResult;
+}
+
+int TCPServer::GetSockFD()
+{
+    return m_iSockFD;
 }

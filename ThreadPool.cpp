@@ -115,7 +115,7 @@ void ThreadPool::Run()
 		else if(nResult == ETIMEDOUT || nResult)
 		{
 			//Break while loop
-			cout << "Thread pool wait timed out after 5 secs" << endl;
+			cout << "Thread pool wait timed out after " << SECONDS_TO_WAIT << " secs" << endl;
 			nContinue = 0;
 		}
 

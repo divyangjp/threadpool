@@ -37,6 +37,7 @@
 #include "ThreadPool.h"
 #include "TCPRequest.h"
 #include "Common.h"
+#include "TCPServer.h"
 
 int main()
 {
@@ -44,6 +45,13 @@ int main()
 	ThreadPool t_pool(NUM_THREADS, &req_q);
 	t_pool.Start();
 
+	//Server
+    TCPServer Server(LOCALHOST, DEFAULT_PORT, BACKLOG);
+
+    //Get server socket fd
+    int server_sockfd = Server.GetSockFD();
+
+/*
 	for(int i=0; i<5; i++)
 	{
 		//sleep(1);
@@ -52,6 +60,14 @@ int main()
 		TCPRequest* tcp_req = new TCPRequest(i, 1000+i, "Request");
 		req_q.pushBack(tcp_req);
 	}
+*/
+    while(1)
+    {
+        int client_sockfd = Server.Accept(server_sockfd);
+
+        TCPRequest* tcp_req = new TCPRequest(client_sockfd, 1000, "Request");
+        req_q.pushBack(tcp_req);
+    }
 
 	t_pool.Join();
   	return 0;

@@ -42,6 +42,7 @@ class TCPServer
 
         //Returns new socket file descriptor if success, -1 otherwise
         int                     Accept(int sockfd);
+        int                     GetSockFD();
 
     protected:
         //Returns 0 on success, error code otherwise

@@ -30,10 +30,10 @@
 #define _COMMON_H_
 
 #define NUM_THREADS                     5
-#define	SECONDS_TO_WAIT                 5
+#define	SECONDS_TO_WAIT                 50
 
 #define LOCALHOST                       "127.0.0.1"
-#define DEFAULT_PORT                    9000
+#define DEFAULT_PORT                    "9000"
 #define BACKLOG                         20
 
 
