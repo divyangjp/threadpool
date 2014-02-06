@@ -55,6 +55,9 @@ ThreadPool::~ThreadPool()
 		delete m_idle_thrv[i];
 		m_idle_thrv.pop_back();
 	}
+
+	//All worker threads are cleared. Threadpool should quit as well.
+	Quit();
 }
 
 void ThreadPool::appendIdle(ThrReqHandler* thr)
@@ -117,6 +120,8 @@ void ThreadPool::Run()
 			//Break while loop
 			cout << "Thread pool wait timed out after " << SECONDS_TO_WAIT << " secs" << endl;
 			nContinue = 0;
+			//Quit threadpool
+			Quit();
 		}
 
 		m_req_q->m_cond.Unlock();

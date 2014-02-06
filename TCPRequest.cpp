@@ -43,7 +43,7 @@ int TCPRequest::getSocketDesc()
 	return m_sock_desc;
 }
 
-int TCPRequest::setSocketDesc(int ai_iSockId)
+void TCPRequest::setSocketDesc(int ai_iSockId)
 {
 	m_sock_desc = ai_iSockId;
 }

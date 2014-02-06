@@ -19,7 +19,8 @@ SOURCE=\
 	$(SOURCEDIR)/Request.cpp\
 	$(SOURCEDIR)/TCPRequest.cpp\
 	$(SOURCEDIR)/ThreadPool.cpp\
-	$(SOURCEDIR)/Thread_App.cpp
+	$(SOURCEDIR)/Thread_App.cpp\
+	$(SOURCEDIR)/TCPServer.cpp
 
 OBJECTS=\
 	Thread.o\
@@ -29,11 +30,13 @@ OBJECTS=\
 	Request.o\
 	TCPRequest.o\
 	ThreadPool.o\
-	Thread_App.o
+	Thread_App.o\
+	Utils.o\
+	TCPServer.o
 
-MYPROGRAM=a.out
+MYPROGRAM=threadpool.out
 MYINCLUDES=\
-	-I./ 
+	-I./
 
 MYLIBRARIES=
 
@@ -48,7 +51,7 @@ CC=g++
 all: $(MYPROGRAM)
 
 $(MYPROGRAM): $(SOURCE)
-	$(CC) $(CFLAGS) $(MYINCLUDES) $(SOURCE) -o $(MYPROGRAM) 
+	$(CC) $(CFLAGS) $(MYINCLUDES) $(SOURCE) -o $(MYPROGRAM)
 
 debug: $(SOURCE)
 	$(CC) $(CFLAGS) $(CDEBUGFLAGS) $(MYINCLUDES) $(SOURCE) -o $(MYPROGRAM)

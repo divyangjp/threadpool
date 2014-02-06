@@ -73,6 +73,11 @@ void Thread::Quit()
 	m_running = false;
 }
 
+bool Thread::IsRunning()
+{
+    return m_running;
+}
+
 void* Thread::stThreadRoutine(void* arg)
 {
   ((Thread*)arg)->Run();

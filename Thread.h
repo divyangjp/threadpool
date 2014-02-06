@@ -50,6 +50,7 @@ class Thread
     void  		Cancel();
     pthread_t   Self();
 	virtual void Quit();
+	bool        IsRunning();
 
     static void * stThreadRoutine(void*);
 

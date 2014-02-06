@@ -47,6 +47,8 @@ int main()
 
 	//Server
     TCPServer Server(LOCALHOST, DEFAULT_PORT, BACKLOG);
+    cout << "Server has started listening on port : " << DEFAULT_PORT << endl;
+    cout << "==============================================" << endl;
 
     //Get server socket fd
     int server_sockfd = Server.GetSockFD();
@@ -61,12 +63,17 @@ int main()
 		req_q.pushBack(tcp_req);
 	}
 */
+    //Server should keep accepting requests
+    int req_count = 0;
     while(1)
     {
         int client_sockfd = Server.Accept(server_sockfd);
 
-        TCPRequest* tcp_req = new TCPRequest(client_sockfd, 1000, "Request");
+        cout << "New request no " << 1000+req_count << endl;
+        TCPRequest* tcp_req = new TCPRequest(client_sockfd, 1000+req_count, "Request");
         req_q.pushBack(tcp_req);
+
+        req_count++;
     }
 
 	t_pool.Join();
