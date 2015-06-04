@@ -33,6 +33,7 @@ using namespace std;
 void TCPRequest::doWork()
 {
 	cout << "Client Socket Descriptor = " << m_sock_desc << endl;
+    sleep(1);
 
     //Need to ensure that socket is closed after work is done
 	close(m_sock_desc);
